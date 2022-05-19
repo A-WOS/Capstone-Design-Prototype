@@ -9,11 +9,14 @@ channels==3.0.4
 constantly==15.1.0
 cryptography==37.0.2
 daphne==3.0.2
+dj-database-url==0.5.0
 Django==4.0.3
+django-heroku==0.3.1
 hyperlink==21.0.0
 idna==3.3
 incremental==21.3.0
 mysqlclient==2.1.0
+psycopg2==2.9.3
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
 pycparser==2.21
@@ -27,5 +30,6 @@ twisted-iocpsupport==1.0.2
 txaio==22.2.1
 typing_extensions==4.2.0
 tzdata==2022.1
+whitenoise==6.1.0
 wincertstore==0.2
 zope.interface==5.4.0
