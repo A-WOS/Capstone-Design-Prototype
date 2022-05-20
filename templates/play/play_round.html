@@ -8,8 +8,9 @@
         <input type="radio" name="chk_info" value="2">2. {{ q.quiz_Alist2 }}<br>
         <input type="radio" name="chk_info" value="3">3. {{ q.quiz_Alist3 }}<br>
         <input type="radio" name="chk_info" value="4">4. {{ q.quiz_Alist4 }}<br>
-         <li><a href="play/after/">확인</a></li>
+         <li><a href="/play/{{ q.id }}/">확인</a></li>
     <img src='{{ q.image.url }}' height="500" width="500">
     </div>
+        {{ q.startTimer }}
     {% endif %}
 {% endfor %}
