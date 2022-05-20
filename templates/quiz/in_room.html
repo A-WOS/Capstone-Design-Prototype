@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% if user.is_authenticated %}
+        사용자명 : {{ user.username }}
+        방 생성 완료
+    {% endif %}
+{% endblock %}

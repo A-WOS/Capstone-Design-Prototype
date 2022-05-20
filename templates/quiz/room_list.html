@@ -1,23 +1,16 @@
-{#<!DOCTYPE html>#}
-{#<html lang="en">#}
-{#<head>#}
-{#    <meta charset="UTF-8">#}
-{#    <title>Title</title>#}
-{#</head>#}
-{#<body>#}
 {% extends 'base.html' %}
 {% block content %}
-    {% if room_list %}
-        {% for room in room_list %}
-            <tr>
-{#                {{ room.room_name }} {% if room.room_pw %} secret pw {% endif %} {{  }} #}
-                {{ room.room_name }}
-            </tr>
-        {% endfor %}
-    {% else %}
-        <h1 class="text-center my_title">방이 없습니다.</h1><br>
-    {% endif%}
-
+    {% if user.is_authenticated %}
+        사용자명 : {{ user.username }}
+        {% if room_list %}
+            {% for room in room_list %}
+                <tr>
+                    {{ room.room_name }}
+                </tr>
+            {% endfor %}
+        {% else %}
+            <h1 class="text-center my_title">방이 없습니다.</h1><br>
+        {% endif %}
+        <a class="btn btn-primary" href="{% url 'create_room' %}" style="float:right">방 생성</a>
+    {% endif %}
 {% endblock %}
-{#</body>#}
-{#</html>#}
