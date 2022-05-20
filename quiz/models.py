@@ -1,3 +1,4 @@
+from django.contrib.auth.models import AbstractUser, User
 from django.db import models
 
 
@@ -12,9 +13,17 @@ class QuizRoom(models.Model):
         return self.room_name
 
 
-class QuizPlayers(models.Model):
-    username = models.CharField(max_length=100)
-    room = models.ForeignKey(QuizRoom, on_delete=models.CASCADE)
+class QuizPlayers(User):
+    # user = models.OneToOneField(User)
+    auth = models.IntegerField(default=0)
+    room = models.ForeignKey(QuizRoom, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return self.username
+
+
+
+# class QuizPlayers(models.Model):
+#     username = models.CharField(max_length=100)
+#     room = models.ForeignKey(QuizRoom, on_delete=models.CASCADE)
+#
