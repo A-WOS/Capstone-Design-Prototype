@@ -1,0 +1,23 @@
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Title</title>#}
+{#</head>#}
+{#<body>#}
+{% extends 'base.html' %}
+{% block content %}
+    {% if room_list %}
+        {% for room in room_list %}
+            <tr>
+{#                {{ room.room_name }} {% if room.room_pw %} secret pw {% endif %} {{  }} #}
+                {{ room.room_name }}
+            </tr>
+        {% endfor %}
+    {% else %}
+        <h1 class="text-center my_title">방이 없습니다.</h1><br>
+    {% endif%}
+
+{% endblock %}
+{#</body>#}
+{#</html>#}
