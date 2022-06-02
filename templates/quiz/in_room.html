@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
+    {#    <form method="get" class="post-form">#}
+
     {% if user.is_authenticated %}
-        사용자명 : {{ user.username }}
-        방 생성 완료
+        {% csrf_token %}
+        호스트명 : {{ user.username }} <br>
+        방제목 : {{ room.room_name }} / 방 초대코드 : {{ room.room_invited_code }} / 라운드 : {{ room.room_play_round }} / 라운드 당 제한시간 : {{ room.round_limit_time }}
     {% endif %}
+    {#    </form>#}
 {% endblock %}
