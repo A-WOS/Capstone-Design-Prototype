@@ -8,6 +8,7 @@ class QuizRoom(models.Model):
     room_invited_code = models.CharField(max_length=50)
     room_play_round = models.IntegerField()
     room_round_limit_time = models.IntegerField()
+    room_user = models.CharField(max_length=100)
 
     def __str__(self):
         return self.room_name
