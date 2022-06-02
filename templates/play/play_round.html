@@ -1,8 +1,32 @@
+<style>
+#myProgress {
+    width:400px;
+    background-color:#ddd;
+}
+
+#myBar {
+    width:400px;
+    height:30px;
+    background-color:#4CAF50;
+}
+</style>
+
+
 {%  for q in quiz  %}
+
+
     {% if q.id == 1 %}
+    <header><h5>{{ q.quiz_title }}</h5></header>
+
+    <nav id="myProgress">
+    <div id="myBar"></div>
+    </nav>
+
+    <nav id="digit"></nav>
+
     <div>
-        <h5>{{ q.quiz_title }}</h5>
         <h5>{{ q.quiz_answer }}</h5>
+
 
         <input type="radio" name="chk_info" value="1">1. {{ q.quiz_Alist1 }}<br>
         <input type="radio" name="chk_info" value="2">2. {{ q.quiz_Alist2 }}<br>
@@ -11,6 +35,36 @@
          <li><a href="/play/{{ q.id }}/">확인</a></li>
     <img src='{{ q.image.url }}' height="500" width="500">
     </div>
-        {{ q.startTimer }}
+
     {% endif %}
 {% endfor %}
+<script>
+    var i = 440;
+    function start() {
+        if (i == 440)
+        {
+            i = 440;
+            var digit = document.getElementById("digit");
+
+            var elem = document.getElementById("myBar");
+            var width = 440;
+            var id = setInterval(frame,1000);
+            function frame() {
+                if (width <= 0) {
+                    clearInterval(id);
+                    i=14;
+                    digit.innerHTML = width + "초";
+
+                    location.href = 'http://127.0.0.1:8000/play/';
+                } else {
+                    digit.innerHTML = (width-40)/40 + "초";
+
+                    width-=40;
+                    elem.style.width = width + "px";
+
+                }
+            }
+        }
+    }
+    start()
+    </script>
