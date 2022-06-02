@@ -51,3 +51,7 @@ def create_room(request):
 
 def in_room(request):
     return render(request, 'quiz/in_room.html')
+
+
+def join_room(request):
+    return render(request, 'quiz/join_room.html')
