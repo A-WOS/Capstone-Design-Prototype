@@ -42,7 +42,7 @@ def create_room(request):
         form = RoomForm(request.POST)
         if form.is_valid():
             room = form.save(commit=False)
-            room.room_user = request.user
+            room.room_host = request.user
             room.save()
             return render(request, 'quiz/in_room.html')
     else:
@@ -52,6 +52,13 @@ def create_room(request):
 
 def in_room(request, room_id):
     room = get_object_or_404(QuizRoom, pk=room_id)
+    # charField
+    room.room_user += f'{request.user} '
+    # room.room_user += ','+ request.user
+    room.save()
+    # listField
+    # room.room_user.append(request.user)
+    print(room.room_user, type(room.room_user))
     context = {'room':room}
     return render(request, 'quiz/in_room.html', context)
 
