@@ -99,6 +99,9 @@ DATABASES = {
     }
 }
 
+# language session key 오류
+# from django.utils.translation
+
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
@@ -136,6 +139,7 @@ STATIC_URL = 'static/'
 
 # 로그인 성공후 이동하는 URL
 LOGIN_REDIRECT_URL = '/'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
