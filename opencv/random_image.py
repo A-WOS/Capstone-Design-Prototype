@@ -5,6 +5,7 @@ import numpy as np
 
 
 img = cv2.imread("img/elephant.jpg")
+# img = cv2.blur(img, (20, 20))
 for i in range(9):
     globals()['org_{0}'.format(i)] = img.copy()
 print(img.shape)
@@ -25,17 +26,33 @@ for col in row_list:
     first_col = col
     count += 1
 
+avg_row = int(row/3)
+avg_col = int(col/3)
 print(len(img_list))
+resize_img_list = []
 for i in img_list:
     cv2.imshow("a".format(i), i)
+    resize_img_list.append(cv2.resize(i, (avg_row, avg_col)))
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
 # axis = 0 -- 가로 || axis = 1 -- 세로
 # cv2.vconcat([img,img2]) -- 가로 || cv2.hconcat([img,img2]) -- 세로
-i = int(random.randint(0, 8))
-j = int(random.randint(0, 8))
-test_img = np.concatenate([img_list[i], img_list[j]], axis=1)
+random.shuffle(resize_img_list)
+# for i in img_list:
+#     cv2.imshow("a".format(i), i)
+#     cv2.waitKey(0)
+#     cv2.destroyAllWindows()
+
+
+test_img_list = []
+for i in [0, 3, 6]:
+    x = resize_img_list[i+0]
+    y = resize_img_list[i+1]
+    z = resize_img_list[i+2]
+    test_img_list.append(cv2.hconcat([x, y, z]))
+
+test_img = cv2.vconcat([test_img_list[0], test_img_list[1], test_img_list[2]])
+
 cv2.imshow("test", test_img)
 cv2.waitKey(0)
-
