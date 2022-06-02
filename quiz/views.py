@@ -1,6 +1,6 @@
 import django.contrib.auth.models
 from django.contrib.auth import authenticate, login
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import QuizRoom, QuizPlayers
 # from .models import QuizRoom
 from .forms import PlayerForm, RoomForm
@@ -42,15 +42,18 @@ def create_room(request):
         form = RoomForm(request.POST)
         if form.is_valid():
             room = form.save(commit=False)
+            room.room_user = request.user
             room.save()
-            return redirect('quiz:in_room')
+            return render(request, 'quiz/in_room.html')
     else:
         form = RoomForm()
     return render(request, 'quiz/create_room.html', {'form':form})
 
 
-def in_room(request):
-    return render(request, 'quiz/in_room.html')
+def in_room(request, room_id):
+    room = get_object_or_404(QuizRoom, pk=room_id)
+    context = {'room':room}
+    return render(request, 'quiz/in_room.html', context)
 
 
 def join_room(request):
