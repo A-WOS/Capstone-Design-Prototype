@@ -1,18 +1,33 @@
 {% extends 'base.html' %}
 {% block content %}
-    {% if user.is_authenticated %}
-        사용자명 : {{ user.username }}
-        {% if room_list %}
-            {% for room in room_list %}
-                <tr>
-                    {{ room.room_name }}
-                </tr>
-            {% endfor %}
-        {% else %}
-            <h1 class="text-center my_title">방이 없습니다.</h1><br>
+    <div class="container">
+        {#    <form method="post" class="post-form">#}
+        {#    {% csrf_token %}#}
+        {% if user.is_authenticated %}
+            {% csrf_token %}
+            <h6> 사용자명 : {{ user.username }}</h6>
+            {% if room_list %}
+                {% for room in room_list %}
+                    <pr>
+
+                        {#                        {{ room.id }} {{ room.room_name }}#}
+                        {#                        <tr>#}
+                        {#                            <td><h5> 호스트명 : {{ room.room_user }} </h5></td>#}
+                        <a class="btn-outline-primary" href="{% url 'in_room' room.id %}">
+                            호스트명 : {{ room.room_user }} / 방제 : {{ room.room_name }} / {{ room.room_play_round }}</a>
+
+                        <br>
+                    </pr>
+                {% endfor %}
+            {% else %}
+                <h1 class="text-center my_title">방이 없습니다.</h1><br>
+            {% endif %}
+
+            <a class="btn btn-primary" href="{% url 'create_room' %}" style="float:right">방 생성</a>
+            {#            <a class="btn btn-primary" href="{% url 'join_room' %}" style="float:left">방입장</a>#}
+{#            <a class="btn btn-primary" href="#" style="float:left">방입장</a>#}
+            {#            <a class="btn btn-primary" href="{% url 'in_room' room_id %}" style="float:left">방입장</a>#}
         {% endif %}
-        <a class="btn btn-primary" href="{% url 'create_room' %}" style="float:right">방 생성</a>
-{#        <a class="btn btn-primary" href="{% url 'join_room' %}" style="float:left">방입장</a>#}
-        <a class="btn btn-primary" href="#" style="float:left">방입장</a>
-    {% endif %}
+        {#    </form>#}
+    </div>
 {% endblock %}
