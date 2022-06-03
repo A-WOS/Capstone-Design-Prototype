@@ -2,6 +2,7 @@
 {% block content %}
     <div class="container">
         <form method="post" class="post-form my-3" enctype="multipart/form-data">
+{#        <form method="post" class="post-form my-3" enctype="multipart/form-data" action="checkview">#}
             {% csrf_token %}
             {% if form.errors %}
                 <div class="alert alert-danger" role="alert">

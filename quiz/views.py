@@ -1,7 +1,8 @@
 import django.contrib.auth.models
 from django.contrib.auth import authenticate, login
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import QuizRoom, QuizPlayers
+from .models import QuizRoom, QuizPlayers, Message
 # from .models import QuizRoom
 from .forms import PlayerForm, RoomForm
 
@@ -28,14 +29,6 @@ def signup_login(request):
     return render(request, 'quiz/signup_login.html', {'form': form})
 
 
-# django.contrib.auth.models.User.set_unusable_password()
-
-
-# def enter_room(request):
-#     room_list = QuizRoom.objects.all()
-#     context = {'room_list': room_list}
-#     return render(request, 'quiz/room_list', context)
-
 def create_room(request):
     # player = QuizPlayers.objects.get(username=QuizPlayers.username)
     if request.method == "POST":
@@ -44,24 +37,60 @@ def create_room(request):
             room = form.save(commit=False)
             room.room_host = request.user
             room.save()
+            # checkview(room.room_name, request.user)
             return render(request, 'quiz/in_room.html')
     else:
         form = RoomForm()
-    return render(request, 'quiz/create_room.html', {'form':form})
+    return render(request, 'quiz/create_room.html', {'form': form})
 
 
 def in_room(request, room_id):
     room = get_object_or_404(QuizRoom, pk=room_id)
-    # charField
+    # if request.user not in room.room_user:
     room.room_user += f'{request.user} '
-    # room.room_user += ','+ request.user
+    # set(room.room_user)
+    # checkview(room.room_name, request.user)
     room.save()
-    # listField
-    # room.room_user.append(request.user)
-    print(room.room_user, type(room.room_user))
-    context = {'room':room}
+    print(room.room_user, type(room.room_user), type(request.user))
+    context = {'room': room}
     return render(request, 'quiz/in_room.html', context)
 
 
-def join_room(request):
-    return render(request, 'quiz/join_room.html')
+# chat
+# def checkview(r, u):
+#     # room = request.POST['room_name']
+#     # username = request.POST['username']
+#     # username = request.user
+#     room = r
+#     username = u
+#
+#     if QuizRoom.objects.filter(name=room).exists():
+#         return redirect('/' + room + '/?username=' + username)
+#     # else:
+#     #     new_room = QuizRoom.objects.create(name=room)
+#     #     new_room.save()
+#     #     return redirect('/' + room + '/?username=' + username)
+
+
+# def send(request):
+#     message = request.POST['message']
+#     username = request.POST['username']
+#     room_id = request.POST['room_id']
+#
+#     new_message = Message.objects.create(value=message, user=username, room=room_id)
+#     new_message.save()
+#     return HttpResponse('Message sent successfully')
+#
+#
+# def getMessages(request, room_id):
+#     room = QuizRoom.objects.get(name=room_id)
+#
+#     messages = Message.objects.filter(room=room.id)
+#     return JsonResponse({"messages": list(messages.values())})
+
+# def room(request):
+#     username = request.user
+#     # room_details = Room.objects.get(name=room)
+#     return render(request, 'room.html', {
+#         'username': username,
+#     })
