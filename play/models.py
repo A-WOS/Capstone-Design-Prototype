@@ -11,6 +11,7 @@ class Quiz(models.Model):
     quiz_Alist4 = models.CharField(max_length=200, null=True)
 
     quiz_answer = models.IntegerField(default=0)
+    quiz_answer_name = models.CharField(max_length=200, null=True)
     image = models.ImageField(upload_to='static/picture', blank=True, null=True)
 
     def __str__(self):

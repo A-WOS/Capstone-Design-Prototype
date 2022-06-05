@@ -8,13 +8,13 @@ def index(request):
 
 
 def play_round_after_fail(request):
-    quiz = Quiz.objects.all()
+    quiz = Quiz.objects.get(id =1)
 
     return render(request, 'play/play_round_after_fail.html',{'quiz': quiz})
 
 
 def play_round_after_success(request):
-    quiz = Quiz.objects.all()
+    quiz = Quiz.objects.get(id=1)
 
     return render(request, 'play/play_round_after_success.html', {'quiz': quiz})
 
