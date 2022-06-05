@@ -30,31 +30,37 @@ def signup_login(request):
 
 
 def create_room(request):
-    # player = QuizPlayers.objects.get(username=QuizPlayers.username)
     if request.method == "POST":
         form = RoomForm(request.POST)
         if form.is_valid():
             room = form.save(commit=False)
             room.room_host = request.user
             room.save()
-            # checkview(room.room_name, request.user)
             return render(request, 'quiz/in_room.html')
     else:
         form = RoomForm()
     return render(request, 'quiz/create_room.html', {'form': form})
 
 
+# room.room_user = str()
+# request.user = SimpleLazyObject
 def in_room(request, room_id):
     room = get_object_or_404(QuizRoom, pk=room_id)
-    # if request.user not in room.room_user:
-    room.room_user += f'{request.user} '
-    # set(room.room_user)
-    # checkview(room.room_name, request.user)
+    players = str(request.user)
+    if players not in room.room_user:
+        room.room_user += f'{players}'
     room.save()
     print(room.room_user, type(room.room_user), type(request.user))
     context = {'room': room}
     return render(request, 'quiz/in_room.html', context)
 
+
+def delete_user():
+    return
+
+
+def delete_room(request, room_id):
+    return
 
 # chat
 # def checkview(r, u):
