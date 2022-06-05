@@ -11,15 +11,7 @@ class Quiz(models.Model):
     quiz_Alist4 = models.CharField(max_length=200, null=True)
 
     quiz_answer = models.IntegerField(default=0)
-    image = models.ImageField(blank=True, null=True)
-
-    def startTimer(self):
-        # print("Timer")
-        timer = threading.Timer(5, self.startTimer)
-        timer.start()
-
-    if __name__ == '__main__':
-        startTimer()
+    image = models.ImageField(upload_to='static/picture', blank=True, null=True)
 
     def __str__(self):
         return self.quiz_title

@@ -1,53 +1,98 @@
 <style>
 #myProgress {
-    width:400px;
+    width:100%;
     background-color:#ddd;
 }
 
 #myBar {
-    width:400px;
+    width:100%;
     height:30px;
     background-color:#4CAF50;
+}
+header{
+    text-align: center;
+}
+div{
+    width: 100%;
+    height:70%;
+}
+div.left{
+    width:50%;
+    float:left;
+    box-sizing: border-box;
+
+
+}
+div.right{
+    align-items: end;
+    width:50%;
+    float:right;
+    box-sizing: border-box;
+
 }
 </style>
 
 
-{%  for q in quiz  %}
+
+        <header><h1>{{ quiz.quiz_title }}</h1><br>
+            <h2>
+            <script>
+            var round = 1;
+            document.write(round);
+            </script>
+            / 5
+            </h2>
+        <br>
+
+        </header>
 
 
-    {% if q.id == 1 %}
-    <header><h5>{{ q.quiz_title }}</h5></header>
+        <nav id="myProgress">
+        <nav id="myBar"></nav>
+        </nav>
 
-    <nav id="myProgress">
-    <div id="myBar"></div>
-    </nav>
+        <nav id="digit"></nav>
+        <h5>정답 : {{ quiz.quiz_answer }}</h5>
+        <hr>
+        <div>
+        <div class = "left">
+            <aside>
+                <button id="btn1" onclick="btn_clk(1)" >{{ quiz.quiz_Alist1 }}</button><br><br><br><br><br>
+                <button id="btn2" onclick="btn_clk(2)" >{{ quiz.quiz_Alist2 }}</button><br><br><br><br><br>
+                <button id="btn3" onclick="btn_clk(3)" >{{ quiz.quiz_Alist3 }}</button><br><br><br><br><br>
+                <button id="btn4" onclick="btn_clk(4)" >{{ quiz.quiz_Alist4 }}</button><br><br><br><br><br>
+            </aside>
+        </div>
+            <div class = "right">
+                <img src='{{ quiz.image.url }}' height="100%" width="100%">
+            </div>
+        </div>
 
-    <nav id="digit"></nav>
 
-    <div>
-        <h5>{{ q.quiz_answer }}</h5>
-
-
-        <input type="radio" name="chk_info" value="1">1. {{ q.quiz_Alist1 }}<br>
-        <input type="radio" name="chk_info" value="2">2. {{ q.quiz_Alist2 }}<br>
-        <input type="radio" name="chk_info" value="3">3. {{ q.quiz_Alist3 }}<br>
-        <input type="radio" name="chk_info" value="4">4. {{ q.quiz_Alist4 }}<br>
-         <li><a href="/play/{{ q.id }}/">확인</a></li>
-    <img src='{{ q.image.url }}' height="500" width="500">
-    </div>
-
-    {% endif %}
-{% endfor %}
 <script>
-    var i = 440;
+    function btn_clk(num){
+        if(num == 3){
+            location.href = 'http://127.0.0.1:8000/play/success/';
+        }else{
+            location.href = 'http://127.0.0.1:8000/play/fail/';
+        }
+
+    }
+</script>
+
+
+
+{#타이머 기능#}
+<script>
+    var i = 110;
     function start() {
-        if (i == 440)
+        if (i == 110)
         {
-            i = 440;
+            i = 110;
             var digit = document.getElementById("digit");
 
             var elem = document.getElementById("myBar");
-            var width = 440;
+            var width = 110;
             var id = setInterval(frame,1000);
             function frame() {
                 if (width <= 0) {
@@ -55,16 +100,19 @@
                     i=14;
                     digit.innerHTML = width + "초";
 
-                    location.href = 'http://127.0.0.1:8000/play/';
-                } else {
-                    digit.innerHTML = (width-40)/40 + "초";
+                    location.href = 'http://127.0.0.1:8000/play/fail/';
 
-                    width-=40;
-                    elem.style.width = width + "px";
+                } else {
+                    digit.innerHTML = width/10-1 + "초";
+
+                    width-=10;
+                    elem.style.width = width + "%";
 
                 }
             }
         }
     }
     start()
-    </script>
+</script>
+
+

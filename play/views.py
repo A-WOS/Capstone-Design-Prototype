@@ -3,12 +3,18 @@ from .models import Quiz
 
 
 def index(request):
-    quiz = Quiz.objects.all()
+    quiz = Quiz.objects.get(id=1)
     return render(request, 'play/play_round.html', {'quiz': quiz})
 
 
-def play_round_after(request, quiz_id):
-    quiz = Quiz.objects.get(id=quiz_id)
-    context = {'quiz': quiz}
+def play_round_after_fail(request):
+    quiz = Quiz.objects.all()
 
-    return render(request, 'play/play_round_after.html', context)
+    return render(request, 'play/play_round_after_fail.html',{'quiz': quiz})
+
+
+def play_round_after_success(request):
+    quiz = Quiz.objects.all()
+
+    return render(request, 'play/play_round_after_success.html', {'quiz': quiz})
+

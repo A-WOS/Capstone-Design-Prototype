@@ -1,0 +1,18 @@
+<h1>아쉽게 틀렸습니다!</h1>
+<br>
+<br>
+{%  for q in quiz  %}
+    {% if q.id == 1 %}
+{#        <h3>정답: {{ quiz.quiz_answer }}</h3>#}
+        <h3> 정답 : 3
+        <br>코끼리</h3>
+{#        <img src='{{ quiz.image.url }}' height="400" width="400">#}
+        <img src="/static/picture/elephant.jpg" alt="코끼리">
+
+
+    {% endif %}
+{% endfor %}
+
+<a href="http://127.0.0.1:8000/play/" class="btn btn-primary">
+        이전으로
+</a>
