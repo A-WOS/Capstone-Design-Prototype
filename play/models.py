@@ -4,7 +4,6 @@ import sys
 
 
 class Quiz(models.Model):
-    quiz_title = models.CharField(max_length=200)
     quiz_Alist1 = models.CharField(max_length=200, null=True)
     quiz_Alist2 = models.CharField(max_length=200, null=True)
     quiz_Alist3 = models.CharField(max_length=200, null=True)

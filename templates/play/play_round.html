@@ -34,7 +34,7 @@ div.right{
 
 
 
-        <header><h1>{{ quiz.quiz_title }}</h1><br>
+        <header><h1>이것은 무엇일까요?</h1><br>
             <h2>
             <script>
             var round = {{ quiz.id }};
@@ -71,7 +71,7 @@ div.right{
 
 <script>
     function btn_clk(num){
-        if(num == 3){
+        if(num == {{ quiz.quiz_answer }}){
             location.href = 'http://127.0.0.1:8000/play/success/';
         }else{
             location.href = 'http://127.0.0.1:8000/play/fail/';
