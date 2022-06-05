@@ -13,8 +13,8 @@ class Quiz(models.Model):
     quiz_answer_name = models.CharField(max_length=200, null=True)
     image = models.ImageField(upload_to='static/picture', blank=True, null=True)
 
-    def __str__(self):
-        return self.quiz_title
+    def __int__(self):
+        return self.quiz_answer
 
 
 class Player(models.Model):

@@ -37,8 +37,8 @@ div.right{
         <header><h1>이것은 무엇일까요?</h1><br>
             <h2>
             <script>
-            var round = {{ quiz.id }};
-            document.write(round);
+            var roundnum = {{ quiz.id }};
+            document.write(roundnum);
             </script>
             / 5
             </h2>
@@ -69,10 +69,20 @@ div.right{
         </div>
 
 
+
+<script>
+    function btn_clk(num){
+        document.getElementsByName(U_answer).values(num)
+    }
+</script>
+
+
+{#버튼클릭 이벤트 프로토#}
 <script>
     function btn_clk(num){
         if(num == {{ quiz.quiz_answer }}){
             location.href = 'http://127.0.0.1:8000/play/success/';
+
         }else{
             location.href = 'http://127.0.0.1:8000/play/fail/';
         }
@@ -100,7 +110,7 @@ div.right{
                     i=14;
                     digit.innerHTML = width + "초";
 
-                    location.href = 'http://127.0.0.1:8000/play/fail/';
+                    document.getElementById('post-form').submit();
 
                 } else {
                     digit.innerHTML = width/10-1 + "초";
@@ -114,5 +124,10 @@ div.right{
     }
     start()
 </script>
+
+<form id="post-form" method="POST" action="{% url 'success' %}">
+    {% csrf_token %}
+    <input type="hidden" name="round" value="{{ quiz.id }}">
+</form>
 
 

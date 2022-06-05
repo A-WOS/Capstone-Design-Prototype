@@ -7,7 +7,7 @@ class PlayerAdmin(admin.ModelAdmin):
 admin.site.register(Player,PlayerAdmin)
 
 class QuizAdmin(admin.ModelAdmin):
-    search_fields = ['quiz_title']
+    search_fields = ['quiz_answer']
 
 admin.site.register(Quiz,QuizAdmin)
 # Register your models here.

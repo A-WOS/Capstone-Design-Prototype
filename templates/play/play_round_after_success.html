@@ -4,15 +4,13 @@
 
 <nav id="digit"> </nav> 후 다음 라운드로 이동합니다.
 
+
         <h3>정답: {{ quiz.quiz_answer }}</h3>
         <br> <h3>{{ quiz.quiz_answer_name }}</h3>
         <img src='{{ quiz.image.url }}' height="400" width="400">
 
 
 <br>
-<a href="http://127.0.0.1:8000/play/" class="btn btn-primary">
-        이전으로
-</a>
 
 
 {#타이머 기능#}
@@ -32,7 +30,7 @@
                     i=14;
                     digit.innerHTML = width + "초";
 
-                    location.href = 'http://127.0.0.1:8000/play/fail/';
+                    document.getElementById('post-form').submit();
 
                 } else {
                     digit.innerHTML = width/10-1 + "초";
@@ -46,3 +44,8 @@
     }
     start()
 </script>
+
+<form id="post-form" method="POST" action="{% url 'round' %}">
+    {%  csrf_token %}
+    <input type="hidden" name="round" value="{{ quiz.id }}">
+</form>
