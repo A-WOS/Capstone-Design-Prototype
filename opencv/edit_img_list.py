@@ -1,4 +1,4 @@
-import contours_canny, contours_findContours
-import mosaic_all, mosaic_blur
-import remapping_test, remapping_lens
+import contours_canny_save, contours_findContours_save
+import mosaic_all_save, mosaic_blur_save
+import remapping_function_save, remapping_len_save
 
