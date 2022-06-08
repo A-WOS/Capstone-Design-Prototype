@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-img = cv2.imread("./img/elephant.jpg", cv2.IMREAD_COLOR)
+img = cv2.imread("./img/cat.jpg", cv2.IMREAD_COLOR)
 h, w, c = img.shape
 black = np.zeros((h, w, c), np.uint8)
 white = np.zeros((h, w, c), np.uint8)
@@ -9,7 +9,7 @@ white.fill(255)
 
 # color -> gray
 gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
-ret, binary = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)
+ret, binary = cv2.threshold(gray, 210, 255, cv2.THRESH_BINARY)
 binary = cv2.bitwise_not(binary)
 # 이진화
 

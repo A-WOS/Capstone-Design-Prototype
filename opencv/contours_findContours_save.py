@@ -19,7 +19,7 @@ for i in file_list:
 
     # color -> gray
     gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
-    ret, binary = cv2.threshold(gray, 127, 255, cv2.THRESH_BINARY)
+    ret, binary = cv2.threshold(gray, 210, 255, cv2.THRESH_BINARY)
     binary = cv2.bitwise_not(binary)
     # 이진화
 
