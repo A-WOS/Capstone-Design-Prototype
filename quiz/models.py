@@ -26,5 +26,8 @@ class QuizPlayers(User):
 class Message(models.Model):
     value = models.CharField(max_length=10000)
     user = models.CharField(max_length=100)
-    room = models.CharField(max_length=1000)
-    # room = models.ForeignKey(QuizRoom, on_delete=models.CASCADE, null=True)
+    # room = models.CharField(max_length=1000)
+    room = models.ForeignKey(QuizRoom, on_delete=models.DO_NOTHING, null=True)
+
+    def __str__(self):
+        return self.value
