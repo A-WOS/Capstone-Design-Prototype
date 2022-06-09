@@ -29,7 +29,6 @@ prompt-toolkit==3.0.29
 numpy==1.22.3
 opencv-python==4.5.5.64
 psycopg2==2.9.3
-numpy==1.22.3
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
 pyparsing==3.0.9
