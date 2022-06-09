@@ -32,7 +32,6 @@ div.right{
 }
 </style>
 
-
         <header><h1>이것은 무엇일까요?</h1><br>
             <h2>
             <script>
@@ -63,7 +62,7 @@ div.right{
             </aside>
         </div>
             <div class = "right">
-                <img src='{{ quiz.image.url }}' height="100%" width="100%">
+                <img src='{{ quiz.opencv_image.url }}' height="100%" width="100%">
             </div>
         </div>
 
@@ -85,7 +84,7 @@ div.right{
             var digit = document.getElementById("digit");
             var elem = document.getElementById("myBar");
             var width = 110;
-            var id = setInterval(frame,200);
+            var id = setInterval(frame, {{ limit_time.room_round_limit_time }} * 100);
             function frame() {
                 if (width <= 0) {
                     clearInterval(id);
