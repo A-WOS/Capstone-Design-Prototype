@@ -23,6 +23,7 @@ def signup_login(request):
             auth = form.cleaned_data.get('auth')
             user = authenticate(username=username, password=raw_password, auth=auth)
             login(request, user)
+            # return redirect('rooms')
             return redirect('rooms')
     else:
         form = PlayerForm()
@@ -32,11 +33,15 @@ def signup_login(request):
 def create_room(request):
     if request.method == "POST":
         form = RoomForm(request.POST)
+        # print(form.fields[str('room_name')])
+        print(form.fields['room_name'])
         if form.is_valid():
             room = form.save(commit=False)
             room.room_host = request.user
             room.save()
-            return render(request, 'quiz/in_room.html')
+            # print(f'dd {room.id}')
+            # return render(request, 'quiz/in_room.html')
+            return redirect('in_room', room_id=room.id)
     else:
         form = RoomForm()
     return render(request, 'quiz/create_room.html', {'form': form})
@@ -46,12 +51,16 @@ def create_room(request):
 # request.user = SimpleLazyObject
 def in_room(request, room_id):
     room = get_object_or_404(QuizRoom, pk=room_id)
-    players = str(request.user)
-    if players not in room.room_user:
-        room.room_user += f'{players}'
+    # room_details = QuizRoom.objects.get(room_name=room)
+    # print(room_details)
+    player = str(request.user)
+    if player not in room.room_user:
+        room.room_user += f'{player} '
     room.save()
     print(room.room_user, type(room.room_user), type(request.user))
-    context = {'room': room}
+    print(request.GET.get('room_name'))
+    context = {'room': room,
+               'username': player}
     return render(request, 'quiz/in_room.html', context)
 
 
@@ -78,25 +87,29 @@ def delete_room(request, room_id):
 #     #     return redirect('/' + room + '/?username=' + username)
 
 
-# def send(request):
-#     message = request.POST['message']
-#     username = request.POST['username']
-#     room_id = request.POST['room_id']
-#
-#     new_message = Message.objects.create(value=message, user=username, room=room_id)
-#     new_message.save()
-#     return HttpResponse('Message sent successfully')
-#
-#
-# def getMessages(request, room_id):
-#     room = QuizRoom.objects.get(name=room_id)
-#
-#     messages = Message.objects.filter(room=room.id)
-#     return JsonResponse({"messages": list(messages.values())})
-
-# def room(request):
-#     username = request.user
-#     # room_details = Room.objects.get(name=room)
-#     return render(request, 'room.html', {
+# chat
+# def chat_room(request, room):
+#     username = str(request.user)
+#     # room_details = QuizRoom.objects.get(room_name=room)
+#     return render(request, 'quiz/chat.html', {
 #         'username': username,
+#         # 'room': room,
+#         # 'room_details': room_details
 #     })
+
+
+def send(request):
+    message = request.POST['message']
+    username = request.POST['username']
+    room_id = request.POST['room_id']
+
+    new_message = Message.objects.create(value=message, user=username, room=room_id)
+    new_message.save()
+    return HttpResponse('Message sent successfully')
+
+
+def getMessages(request, room):
+    room_details = request.Get.get()
+
+    messages = Message.objects.filter(room=room_details.id)
+    return JsonResponse({"messages": list(messages.values())})
