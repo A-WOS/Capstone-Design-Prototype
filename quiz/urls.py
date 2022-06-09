@@ -8,12 +8,10 @@ urlpatterns = [
     path('create_room/', views.create_room, name='create_room'),
     path('in_room/<int:room_id>/', views.in_room, name='in_room'),
 
-
-    # path('getMessages/<int:room_id>/', views.getMessages, name='getMessages'),
-    path('send', views.send, name='send'),
-    # path('getMessages/', views.getMessages, name='getMessages'),
     # path('send', views.send, name='send'),
-    path('getMessages/<int:room_id>/', views.getMessages, name='getMessages'),
+    # path('getMessages/<int:room_id>/', views.getMessages, name='getMessages'),
+    # path('getMessages/', views.getMessages, name='getMessages'),
+    # path('getMessages/<str:room>/', views.getMessages, name='getMessages'),
 
     # chat
 

@@ -59,31 +59,29 @@ def in_room(request, room_id):
     if player not in room.room_user:
         room.room_user += f'{player} '
     room.save()
-    print(f'room.room_??? types : {room.room_user, type(room.room_user), type(request.user)}')
-    print(f'request.GET.get("room_name") : {request.GET.get("room_name")}')
+    # print(f'room.room_??? types : {room.room_user, type(room.room_user), type(request.user)}')
+    # print(f'request.GET.get("room_name") : {request.GET.get("room_name")}')
     context = {'room': room,
                'username': player}
     return render(request, 'quiz/in_room.html', context)
 
 
-def send(request):
-    # message = request.POST['message']
-    message = request.GET['message']
-    # username = request.POST['username']
-    username = request.GET['username']
-    # room_id = request.POST['room_id']
-    room_id = request.GET['room_id']
-    print(message)
-    print(f'send : {message, username, room_id}')
-    new_message = Message.objects.create(value=message, user=username, room=room_id)
-    new_message.save()
-    return HttpResponse('메시지 보내기 성공')
-
-
-def getMessages(request, room_id):
-    messages = Message.objects.filter(room=room_id)
-    print(f'getMessages : {messages}')
-    return JsonResponse({"messages": list(messages.values())})
+# def send(request):
+#     message = request.POST['message']
+#     username = request.POST['username']
+#     room_id = request.POST['room_id']
+#     print(message)
+#     print(f'send : {message, username, room_id}')
+#     new_message = Message.objects.create(value=message, user=username, room=room_id)
+#     new_message.save()
+#     return HttpResponse('메시지 보내기 성공')
+#
+#
+# def getMessages(request, room_id):
+#     # messages = Message.objects.filter(room=room_id)
+#     messages = Message.objects.get(room=room_id)
+#     print(f'getMessages : {messages}')
+#     return JsonResponse({"messages": list(messages.values())})
 
 
 # def delete_user():
