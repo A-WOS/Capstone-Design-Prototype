@@ -31,6 +31,7 @@ SECRET_KEY = os.environ.get('INSECURE_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# ALLOWED_HOSTS = []
 ALLOWED_HOSTS = ['*']
 
 # Application definition
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # 'channels',
     'quiz.apps.QuizConfig',
+    'play.apps.PlayConfig',
 ]
 
 MIDDLEWARE = [
@@ -139,8 +141,11 @@ STATIC_URL = 'static/'
 
 # 로그인 성공후 이동하는 URL
 LOGIN_REDIRECT_URL = '/'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]

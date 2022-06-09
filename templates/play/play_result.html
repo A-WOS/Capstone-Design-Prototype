@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>점수</title>
+</head>
+<body>
+<h1> 최종 점수</h1>
+{% for player in player_list %}
+    {{ player.player_name }}   {{ player.player_score }}<br>
+{% endfor %}
+
+<a href="{% url 'index' %}">처음으로</a>
+
+</body>
+</html>
