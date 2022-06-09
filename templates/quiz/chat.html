@@ -1,38 +1,23 @@
-{% extends 'base.html' %}
+{% extends 'quiz/chat.html' %}
 {% block content %}
-    {#    <form method="get" class="post-form">#}
-
-    {% if user.is_authenticated %}
-        {% csrf_token %}
-        호스트명 : {{ room.room_host }} <br>
-        방제목 : {{ room.room_name }} / 방 초대코드 : {{ room.room_invited_code }} / 라운드 : {{ room.room_play_round }} / 라운드 당
-        제한시간 : {{ room.room_round_limit_time }}
-        <br>
-        {#        {{ room.room_user }}#}
-        {% for room_user in room.room_user.split %}
-            이용자 : {{ room_user }} <br>
-        {% endfor %}
-        {#        {% for user in room.room_user %}#}
-
-        {#        {% endfor %}#}
-    {% endif %}
-
     <div id="display">
 
     </div>
-    <body>
+
     <script>
         $(document).ready(function () {
 
             setInterval(function () {
                 $.ajax({
                     type: 'GET',
-                    url: "/getMessages/{{room.id}}/",
+                    {#url: "/getMessages/{{room.room_id}}/",#}
+                    url: "/getMessages/{{room.room_name}}/",
                     success: function (response) {
                         console.log(response);
                         $("#display").empty();
                         for (var key in response.messages) {
                             var temp = "<div class='container darker'><b>" + response.messages[key].user + "</b> : " + response.messages[key].value + "</div>";
+                            "<span class='time-left'>" + response.messages[key].date + "</span></div>";
                             $("#display").append(temp);
                         }
                     },
@@ -43,9 +28,9 @@
             }, 1000);
         })
     </script>
-    </body>
-    <div class="container">
 
+
+    <div class="container">
         <form id="post-form">
             {% csrf_token %}
             <input type="hidden" name="username" id="username" value="{{ username }}"/>
@@ -54,8 +39,6 @@
             <input type="submit" value="Send">
         </form>
     </div>
-
-
 
     <script type="text/javascript">
         $(document).on('submit', '#post-form', function (e) {
@@ -77,6 +60,4 @@
             document.getElementById('message').value = ''
         });
     </script>
-
-
 {% endblock %}
