@@ -34,7 +34,7 @@ def create_room(request):
     if request.method == "POST":
         form = RoomForm(request.POST)
         # print(form.fields[str('room_name')])
-        print(form.fields['room_name'])
+        # print(form.fields['room_name'])
         if form.is_valid():
             room = form.save(commit=False)
             room.room_host = request.user
@@ -51,65 +51,44 @@ def create_room(request):
 # request.user = SimpleLazyObject
 def in_room(request, room_id):
     room = get_object_or_404(QuizRoom, pk=room_id)
+    print(f'room type : {room, type(room), room.id}')
     # room_details = QuizRoom.objects.get(room_name=room)
     # print(room_details)
     player = str(request.user)
+    # room_details
     if player not in room.room_user:
         room.room_user += f'{player} '
     room.save()
-    print(room.room_user, type(room.room_user), type(request.user))
-    print(request.GET.get('room_name'))
+    print(f'room.room_??? types : {room.room_user, type(room.room_user), type(request.user)}')
+    print(f'request.GET.get("room_name") : {request.GET.get("room_name")}')
     context = {'room': room,
                'username': player}
     return render(request, 'quiz/in_room.html', context)
 
 
-def delete_user():
-    return
-
-
-def delete_room(request, room_id):
-    return
-
-# chat
-# def checkview(r, u):
-#     # room = request.POST['room_name']
-#     # username = request.POST['username']
-#     # username = request.user
-#     room = r
-#     username = u
-#
-#     if QuizRoom.objects.filter(name=room).exists():
-#         return redirect('/' + room + '/?username=' + username)
-#     # else:
-#     #     new_room = QuizRoom.objects.create(name=room)
-#     #     new_room.save()
-#     #     return redirect('/' + room + '/?username=' + username)
-
-
-# chat
-# def chat_room(request, room):
-#     username = str(request.user)
-#     # room_details = QuizRoom.objects.get(room_name=room)
-#     return render(request, 'quiz/chat.html', {
-#         'username': username,
-#         # 'room': room,
-#         # 'room_details': room_details
-#     })
-
-
 def send(request):
-    message = request.POST['message']
-    username = request.POST['username']
-    room_id = request.POST['room_id']
-
+    # message = request.POST['message']
+    message = request.GET['message']
+    # username = request.POST['username']
+    username = request.GET['username']
+    # room_id = request.POST['room_id']
+    room_id = request.GET['room_id']
+    print(message)
+    print(f'send : {message, username, room_id}')
     new_message = Message.objects.create(value=message, user=username, room=room_id)
     new_message.save()
-    return HttpResponse('Message sent successfully')
+    return HttpResponse('메시지 보내기 성공')
 
 
-def getMessages(request, room):
-    room_details = request.Get.get()
-
-    messages = Message.objects.filter(room=room_details.id)
+def getMessages(request, room_id):
+    messages = Message.objects.filter(room=room_id)
+    print(f'getMessages : {messages}')
     return JsonResponse({"messages": list(messages.values())})
+
+
+# def delete_user():
+#     return
+#
+#
+# def delete_room(request, room_id):
+#     return
