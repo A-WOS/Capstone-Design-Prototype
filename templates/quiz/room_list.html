@@ -14,7 +14,7 @@
                         {#                        <tr>#}
                         {#                            <td><h5> 호스트명 : {{ room.room_user }} </h5></td>#}
                         <a class="btn-outline-primary" href="{% url 'in_room' room.id %}">
-                            방제 : {{ room.room_name }} / {{ room.room_play_round }}</a>
+                            방제 : {{ room.room_name }} / 호스트 : {{ room.room_host }} / 라운드 : {{ room.room_play_round }}</a>
 
                         <br>
                     </pr>
