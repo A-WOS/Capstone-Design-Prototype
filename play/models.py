@@ -2,6 +2,8 @@ from django.db import models
 import threading
 import sys
 
+from quiz.models import QuizPlayers
+
 
 class Quiz(models.Model):
     quiz_Alist1 = models.CharField(max_length=200, null=True)
@@ -19,6 +21,7 @@ class Quiz(models.Model):
 
 class Player(models.Model):
     player_name = models.CharField(max_length=200)
+    # player_name = QuizPlayers.username
     player_answer = models.IntegerField(default=0,null= True)
     player_score = models.IntegerField(default=0)
 

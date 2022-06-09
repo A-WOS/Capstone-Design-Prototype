@@ -18,6 +18,7 @@ class QuizRoom(models.Model):
 class QuizPlayers(User):
     auth = models.IntegerField(default=0)
     room = models.ForeignKey(QuizRoom, on_delete=models.CASCADE, null=True)
+    player_score = models.IntegerField(default=0)
 
     def __str__(self):
         return self.username
