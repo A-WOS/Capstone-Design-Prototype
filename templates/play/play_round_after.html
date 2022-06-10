@@ -14,8 +14,10 @@
         {% endif %}
         <h3>정답: {{ quiz.quiz_answer }}</h3>
         <br> <h3>{{ quiz.quiz_answer_name }}</h3>
+        원본이미지
         <img src='{{ quiz.image.url }}' height="400" width="400">
-
+        문제이미지
+        <img src='{{ quiz.opencv_image.url }}' height="400" width="400">
 
 <br>
 
@@ -30,7 +32,7 @@
             var digit = document.getElementById("digit");
 
             var width = 110;
-            var id = setInterval(frame,200);
+            var id = setInterval(frame,500);
             function frame() {
                 if (width <= 0) {
                     clearInterval(id);

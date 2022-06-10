@@ -80,6 +80,8 @@
 {#            document.getElementById('message').value = ''#}
 {#        });#}
 {#    </script>#}
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -89,80 +91,83 @@
             integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
 </head>
 <body>
+    <div class="container">
 
-{#<h2>{{ room }} - DjChat</h2>#}
-{#<h3>{{ username }}</h3>#}
+        {#<h2>{{ room }} - DjChat</h2>#}
+        {#<h3>{{ username }}</h3>#}
 
-<div id="display">
+        {% if user.is_authenticated %}
+            {% csrf_token %}
+            호스트명 : {{ room.room_host }} <br>
+            방제목 : {{ room.room_name }} / 방 초대코드 : {{ room.room_invited_code }} / 라운드 : {{ room.room_play_round }} / 라운드 당
+            제한시간 : {{ room.room_round_limit_time }}
+            <br>
+        {#    {{ room.room_user }} a1#}
+            {% for room_user in room.room_user.split %}
+                이용자 : {{ room_user }} <br>
+            {% endfor %}
+            {% for user in room.room_user %}
 
-</div>
-{% if user.is_authenticated %}
-    {% csrf_token %}
-    호스트명 : {{ room.room_host }} <br>
-    방제목 : {{ room.room_name }} / 방 초대코드 : {{ room.room_invited_code }} / 라운드 : {{ room.room_play_round }} / 라운드 당
-    제한시간 : {{ room.room_round_limit_time }}
-    <br>
-{#    {{ room.room_user }} a1#}
-    {% for room_user in room.room_user.split %}
-        이용자 : {{ room_user }} <br>
-    {% endfor %}
-    {% for user in room.room_user %}
+            {% endfor %}
+        {% endif %}
 
-    {% endfor %}
-{% endif %}
+        <div id="display">
 
-<a href="{% url 'index' %}">게임시작</a>
-{#<script>#}
-{#    $(document).ready(function () {#}
-{##}
-{#        setInterval(function () {#}
-{#            $.ajax({#}
-{#                type: 'GET',#}
-{#                url: "/getMessages/{{room.id}}/",#}
-{#                success: function (response) {#}
-{#                    console.log(response);#}
-{#                    $("#display").empty();#}
-{#                    for (var key in response.messages) {#}
-{#                        var temp = "<div class='container darker'><b>" + response.messages[key].user + "</b> : " + response.messages[key].value + "</div>";#}
-{#                        $("#display").append(temp);#}
-{#                    }#}
-{#                },#}
-{#                error: function (response) {#}
-{#                    alert('오류 발생')#}
-{#                }#}
-{#            });#}
-{#        }, 1000);#}
-{#    })#}
-{#</script>#}
-{##}
-{#<div class="container">#}
-{##}
-{#    <form id="post-form">#}
-{#        {% csrf_token %}#}
-{#        <input type="hidden" name="username" id="username" value="{{ username }}"/>#}
-{#        <input type="hidden" name="room_id" id="room_id" value="{{ room.id }}"/>#}
-{#        <input type="text" name="message" id="message" width="100px"/>#}
-{#        <input type="submit" value="전송">#}
-{#    </form>#}
-{#</div>#}
-{#</body>#}
-{#<script type="text/javascript">#}
-{#    $(document).on('submit', '#post-form', function (e) {#}
-{#        e.preventDefault();#}
-{##}
-{#        $.ajax({#}
-{#            type: 'POST',#}
-{#            url: '/send',#}
-{#            data: {#}
-{#                username: $('#username').val(),#}
-{#                room_id: $('#room_id').val(),#}
-{#                message: $('#message').val(),#}
-                {#csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),#}
-{#            },#}
-{#            success: function (data) {#}
-{#                alert(data)#}
-{#            }#}
-{#        });#}
-{#        document.getElementById('message').value = ''#}
-{#    });#}
-{#</script>#}
+        </div>
+
+         <form id="post-form">
+            {% csrf_token %}
+            <input type="hidden" name="username" id="username" value="{{ username }}"/>
+            <input type="hidden" name="room_id" id="room_id" value="{{ room.id }}"/>
+            <input type="text" name="message" id="message" width="100px"/>
+            <input type="submit" value="전송">
+        </form>
+
+        <a href="{% url 'index' %}">게임시작</a>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+
+            setInterval(function () {
+                $.ajax({
+                    type: 'GET',
+                    url: "/quiz/getMessages/{{room.id}}/",
+                    success: function (response) {
+                        console.log(response);
+                        $("#display").empty();
+                        for (var key in response.messages) {
+                            var temp = "<div class='container darker'><b>" + response.messages[key].user + "</b> : " + response.messages[key].value + "</div>";
+                            $("#display").append(temp);
+                        }
+                    },
+                    error: function (response) {
+                        {#alert('오류 발생')#}
+                        console.log(response.error);
+                    }
+                });
+            }, 1000);
+        })
+    </script>
+
+    <script type="text/javascript">
+        $(document).on('submit', '#post-form', function (e) {
+            e.preventDefault();
+
+            $.ajax({
+                type: 'POST',
+                url: '/quiz/send',
+                data: {
+                    username: $('#username').val(),
+                    room_id: $('#room_id').val(),
+                    message: $('#message').val(),
+                    csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+                },
+                success: function (data) {
+                    //alert(data)
+                }
+            });
+            document.getElementById('message').value = ''
+        });
+    </script>
+</body>
