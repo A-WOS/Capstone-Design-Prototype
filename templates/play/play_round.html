@@ -84,13 +84,12 @@ div.right{
             var digit = document.getElementById("digit");
             var elem = document.getElementById("myBar");
             var width = 110;
-            var timer = {{ limit_time.room_round_limit_time }}*10+10;
             var id = setInterval(frame, {{ limit_time.room_round_limit_time }} * 100);
             function frame() {
                 if (width <= 0) {
                     clearInterval(id);
                     i=14;
-                    digit.innerHTML = timer + "초";
+                    digit.innerHTML = width + "초";
 
                     if(ans == 1){
                         document.getElementById('ans-1').submit();
@@ -106,8 +105,8 @@ div.right{
 
 
                 } else {
-                    digit.innerHTML = parseInt(timer/10-1) + "초";
-                    timer-={{ limit_time.room_round_limit_time }};
+                    {#digit.innerHTML = parseInt(timer/10-1) + "초";#}
+                    {#timer-={{ limit_time.room_round_limit_time }};#}
 
                     width-=10;
                     elem.style.width = width + "%";
