@@ -11,8 +11,8 @@ def index(request):
     player = QuizPlayers.objects.get(id=request.user.id)
     
     # 제한시간 참조하는 부분
-    limit_time = QuizRoom.objects.filter(room_user=request.user.username).last()
-    print(limit_time.room_round_limit_time)
+    limit_time = QuizRoom.objects.filter(room_host=request.user.username).last()
+    # print(limit_time.room_round_limit_time)
 
     print(player)
     player.player_score = 0
@@ -37,7 +37,7 @@ def play_round_after(request):
 
 def play_round(request):
     round = request.POST['round']
-    limit_time = QuizRoom.objects.filter(room_user=request.user.username).last()
+    limit_time = QuizRoom.objects.filter(room_host=request.user.username).last()
 
     quiz = Quiz.objects.get(id=int(round) + 1)
 
