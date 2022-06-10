@@ -99,8 +99,8 @@
         {% if user.is_authenticated %}
             {% csrf_token %}
             호스트명 : {{ room.room_host }} <br>
-            방제목 : {{ room.room_name }} / 방 초대코드 : {{ room.room_invited_code }} / 라운드 : {{ room.room_play_round }} / 라운드 당
-            제한시간 : {{ room.room_round_limit_time }}
+{#            방 초대코드 : {{ room.room_invited_code }} / #}
+            방제목 : {{ room.room_name }} / 라운드 : {{ room.room_play_round }} / 라운드 당 제한시간 : {{ room.room_round_limit_time }}
             <br>
         {#    {{ room.room_user }} a1#}
             {% for room_user in room.room_user.split %}

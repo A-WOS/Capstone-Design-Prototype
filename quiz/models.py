@@ -4,8 +4,8 @@ from django.db import models
 
 class QuizRoom(models.Model):
     room_name = models.CharField(max_length=100)
-    room_pw = models.IntegerField()
-    room_invited_code = models.CharField(max_length=50)
+    # room_pw = models.IntegerField()
+    # room_invited_code = models.CharField(max_length=50)
     room_play_round = models.IntegerField()
     room_round_limit_time = models.IntegerField()
     room_host = models.CharField(max_length=30)
