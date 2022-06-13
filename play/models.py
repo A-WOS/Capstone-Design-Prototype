@@ -15,8 +15,8 @@ class Quiz(models.Model):
     quiz_answer_name = models.CharField(max_length=200, null=True)
 
     # 추가된 opencv img 칼럼
-    opencv_image = models.ImageField(upload_to='static/picture', blank=True, null=True)
-    image = models.ImageField(upload_to='static/picture', blank=True, null=True)
+    opencv_image = models.ImageField(upload_to='static/picture/opencv', blank=True, null=True)
+    image = models.ImageField(upload_to='static/picture/original', blank=True, null=True)
 
     def __int__(self):
         return self.quiz_answer

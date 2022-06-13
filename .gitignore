@@ -133,7 +133,7 @@ venv/
 env.bak/
 venv.bak/
 
-requirements2.txt
+readme_picture/
 # Spyder project settings
 .spyderproject
 .spyproject
