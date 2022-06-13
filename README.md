@@ -6,7 +6,7 @@
 2. python manage.py makemigrations, migrate로 db가 만들어졌는지 확인합니다.
 3. python manage.py createsuperuser로 장고 관리자를 만듭니다.
 4. 장과 관리자 페이지로 들어가서 Quizs 탭에 들어가셔서 추가를 누릅니다.    
-(사진 파일은 저희가 올려드린 Quiz_picture에 있습니다.Quiz_picture에 1번~5번 폴더를 참조하셔서
+(사진 파일은 저희가 올려드린 readme_picture폴더의 Quiz_picture에 있습니다.Quiz_picture에 1번~5번 폴더를 참조하셔서
 아래의 사진처럼 추가해주시면 될 것 같습니다.)   
 아래와 같이 만든 후 저장한 다음에 장고 관리자 페이지에서 로그아웃 후 다시 터미널로 돌아옵니다.
 ![1번_퀴즈](readme_picture/img.png)
