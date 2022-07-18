@@ -15,7 +15,9 @@ class QuizRoom(models.Model):
         return self.room_name
 
 
+# class QuizPlayers(models.Model):
 class QuizPlayers(User):
+    # username = models.CharField(max_length=30)
     auth = models.IntegerField(default=0)
     room = models.ForeignKey(QuizRoom, on_delete=models.CASCADE, null=True)
     player_score = models.IntegerField(default=0)
