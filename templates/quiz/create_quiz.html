@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <form method="post" class="post-form my-3" enctype="multipart/form-data">
+{#        <form method="post" class="post-form my-3" enctype="multipart/form-data" action="checkview">#}
+            {% csrf_token %}
+            {% if form.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {% for field in form %}
+                        {% if field.errors %}
+                            <strong>{{ field.label }}</strong>
+                            {{ field.errors }}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <div class="form-group row">
+                <label for="quiz_Alist1">1문항</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="quiz_Alist1" id="quiz_Alist1"
+                           value="{{ form.room_name.value|default_if_none:'' }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="quiz_Alist2">2문항</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="quiz_Alist2" id="quiz_Alist2"
+                           value="{{ form.room_name.value|default_if_none:'' }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="quiz_Alist3">3문항</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="quiz_Alist3" id="quiz_Alist3"
+                           value="{{ form.room_name.value|default_if_none:'' }}">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="quiz_Alist4">4문항</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="quiz_Alist4" id="quiz_Alist4"
+                            value="{{ form.room_name.value|default_if_none:'' }}">
+                </div>
+            </div>
+{#            <div class="form-group">#}
+{#                <label for="room_pw">방 비밀번호</label>#}
+{#                <input type="text" class="form-control" name="room_pw" id="room_pw"#}
+{#                       value="{{ form.room_pw.value|default_if_none:'' }}">#}
+{#            </div>#}
+{#            <div class="form-group">#}
+{#                <label for="room_invited_code">초대코드</label>#}
+{#                <input type="text" class="form-control" name="room_invited_code" id="room_invited_code"#}
+{#                       value="FN65ET66E" disabled>#}
+{#                       value="{{ form.room_invited_code.value|default_if_none:'' }}">#}
+{#            </div>#}
+            <div class="form-group row">
+                정답&nbsp&nbsp
+                <div class="form-check form-check-inline">
+                    <label for="quiz_answer">1번</label>
+                    <input type="radio" class="radioform-check-input" name="quiz_answer" id="quiz_answer"
+                           value="1">
+                </div>
+                <div class="form-check form-check-inline">
+                    <label for="quiz_answer">2번</label>
+                    <input type="radio" class="radioform-check-input" name="quiz_answer" id="quiz_answer"
+                           value="2">
+                </div>
+                <div class="form-check form-check-inline">
+                    <label for="quiz_answer">3번</label>
+                    <input type="radio" class="radioform-check-input" name="quiz_answer" id="quiz_answer"
+                           value="3">
+                </div>
+                <div class="form-check form-check-inline">
+                    <label for="quiz_answer">4번</label>
+                    <input type="radio" class="radioform-check-input" name="quiz_answer" id="quiz_answer"
+                           value="4">
+                </div>
+            </div>
+            <div class="form-group">        <!-- 변형사진 첨부 -->
+                <label for="opencv_image">사진</label>
+                <input type="file" name="opencv_image" id="opencv_image"><br>
+            </div>
+            <div class="form-group">        <!-- 원본사진 첨부 -->
+                <label for="image">사진</label>
+                <input type="file" name="image" id="image"><br>
+            </div>
+            <button type="submit" class="btn btn-primary">퀴즈생성</button>
+        </form>
+    </div>
+{% endblock %}

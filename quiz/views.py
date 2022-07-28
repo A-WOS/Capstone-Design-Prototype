@@ -4,7 +4,7 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import QuizRoom, QuizPlayers, Message
 # from .models import QuizRoom
-from .forms import PlayerForm, RoomForm
+from .forms import PlayerForm, RoomForm, QuizForm
 
 
 def index(request):
@@ -63,6 +63,38 @@ def create_room(request):
     else:
         form = RoomForm()
     return render(request, 'quiz/create_room.html', {'form': form})
+
+
+def create_quiz(request):
+    if not request.user.is_authenticated:
+        return redirect('signup')
+
+    if request.method == "POST":
+        form = QuizForm(request.POST)
+        # print(form.fields[str('room_name')])
+        # print(form.fields['room_name'])
+        if form.is_valid():
+            quiz = form.save(commit=False)
+            answer = "quiz_Alist" + str(quiz.quiz_answer)
+
+            if answer == "quiz_Alist1":
+                quiz.quiz_answer_name = quiz.quiz_Alist1
+            elif answer == "quiz_Alist2":
+                quiz.quiz_answer_name = quiz.quiz_Alist2
+            elif answer == "quiz_Alist3":
+                quiz.quiz_answer_name = quiz.quiz_Alist3
+            else:
+                quiz.quiz_answer_name = quiz.quiz_Alist4
+
+            quiz.image = request.FILES['image']
+            quiz.opencv_image = request.FILES['image']
+            quiz.save()
+            # print(f'dd {room.id}')
+            # return render(request, 'quiz/in_room.html')
+            return redirect('rooms')
+    else:
+        form = RoomForm()
+    return render(request, 'quiz/create_quiz.html', {'form': form})
 
 
 # room.room_user = str()
