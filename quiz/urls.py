@@ -8,6 +8,7 @@ urlpatterns = [
     path('logout/', views.remove_account, name='logout'),
     path('rooms/', views.index, name="rooms"),
     path('create_room/', views.create_room, name='create_room'),
+    path('create_quiz/', views.create_quiz, name='create_quiz'),
     path('in_room/<int:room_id>/', views.in_room, name='in_room'),
 
     path('send', views.send, name='send'),

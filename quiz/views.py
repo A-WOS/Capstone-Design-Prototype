@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import QuizRoom, QuizPlayers, Message
 # from .models import QuizRoom
 from .forms import PlayerForm, RoomForm, QuizForm
+from opencv import test_import
 
 
 def index(request):
@@ -86,8 +87,12 @@ def create_quiz(request):
             else:
                 quiz.quiz_answer_name = quiz.quiz_Alist4
 
+            quiz.opencv_image = request.FILES['opencv_image']
             quiz.image = request.FILES['image']
-            quiz.opencv_image = request.FILES['image']
+            # print(request.FILES['image'])
+            # print(request.FILES['image'].open)
+            # quiz.opencv_image = test_import.test_import(quiz.image)
+
             quiz.save()
             # print(f'dd {room.id}')
             # return render(request, 'quiz/in_room.html')
